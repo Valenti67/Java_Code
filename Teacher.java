@@ -1,26 +1,30 @@
 public class Teacher {
-    public String name;
-    public int age;
 
-    // 没有写构造方法
-    // 如果类里，一个构造方法都没有写
-    // 则 Java 隐含着补一个构造方法，无参 + 什么都不做
-
-    // 什么都不写，等同于写了这个
-//    public Teacher() {
-//    }
-
-    // 但是，一旦类里有构造方法了，无论长什么样，Java 不再补无参的构造方法了
-    public Teacher(String name, int age) {
-        this.name = name;
-        this.age = age;
+    // 和方法定义在哪里无关
+    public String init() {
+        System.out.println("我是定义时初始化");
+        return "";
     }
-    // 没有无参构造方法了
 
-    public static void main(String[] args) {
-        //Teacher a = new Teacher();      // 没有写构造方法，但我也可以构造出对象
-        Teacher a = new Teacher("Hello", 18);
-        System.out.println(a.name);     // 访问属性
-        System.out.println(a.age);
+    // 和构造方法定义在哪里无关，永远最后执行
+    public Teacher() {
+        System.out.println("构造方法，永远最后执行");
+        name = "陈沛鑫";
+    }
+
+    // 第一类：构造代码块
+    {
+        System.out.println("我是构造代码块中初始化");
+    }
+
+    // 第一类：定义时初始化
+    public String name = init();
+
+    // 第一类的执行顺序，按照类中的书写顺序
+
+
+    // 重写继承自 Object 的 toString 方法
+    public String toString() {
+        return "Teacher{name=" + name + "}";
     }
 }
