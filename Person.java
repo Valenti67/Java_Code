@@ -1,20 +1,33 @@
 public class Person {
-    public String name;
-    public int age;
-    public String gender;
+    private int id;
+    private String name;
 
-    public Person(String name, int age, String gender) {
+    public Person(int id, String name) {
+        this.id = id;
         this.name = name;
-        this.age = age;
-        this.gender = gender;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

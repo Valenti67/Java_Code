@@ -1,30 +1,32 @@
 public class Teacher {
+    // 把类用于实例化对象的模板 —— 都不被 static 修饰
+    // 一直在和 Teacher 对象有关
+    public String name; // 某个老师（对象），它有它的名字
+    public int age;     // 某个老师（对象），它有它的年龄
 
-    // 和方法定义在哪里无关
-    public String init() {
-        System.out.println("我是定义时初始化");
-        return "";
+    // 构造方法用于构造某个老师（对象）
+    public Teacher(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
-    // 和构造方法定义在哪里无关，永远最后执行
-    public Teacher() {
-        System.out.println("构造方法，永远最后执行");
-        name = "陈沛鑫";
+    // 某个老师（对象）自我介绍
+    public void introduce() {
+        System.out.printf("我是 %s，我今年 %d 岁\n", name, age);
     }
 
-    // 第一类：构造代码块
-    {
-        System.out.println("我是构造代码块中初始化");
+    // 把类用于静态属性和静态方法的集合 —— 都被 static 修饰
+    public static int countOfTeacher = 0;
+    // 超脱于一个个老师（对象）之上的，和 Teacher 对象无关的
+
+    // 也和 Teacher 对象无关
+    public static String buildTeacher(String name) {
+        countOfTeacher++;
+        return name;
     }
 
-    // 第一类：定义时初始化
-    public String name = init();
-
-    // 第一类的执行顺序，按照类中的书写顺序
-
-
-    // 重写继承自 Object 的 toString 方法
-    public String toString() {
-        return "Teacher{name=" + name + "}";
+    // 也和 Teacher 对象无关
+    public static int getCountOfTeacher() {
+        return countOfTeacher;
     }
 }

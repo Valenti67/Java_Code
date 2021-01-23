@@ -1,7 +1,52 @@
 public class MyDate {
-    public int year;
-    public int month;
-    public int day;
+    // 通过把属性设置成 private，并且写 public 的 get属性 方法
+    // 使得，把读权限公开，但写权限不公开
+    private int year;
+    private int month;
+    private int day;
+
+
+
+    // 命名规范 —— get属性名 —— getter
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    // 命名规范 —— set属性名 —— setter
+    public void setYear(int year) {
+        if (year < 1900 || year > 3000) {
+            // 完全就是一个实例化对象的代码
+            RuntimeException exception = new RuntimeException("year 参数错误");
+            // 通过 throw 关键字，抛出了一个异常对象
+            throw exception;
+        }
+
+        this.year = year;
+    }
+
+    public void setMonth(int month) {
+        if (month < 1 || month > 12) {
+            throw new RuntimeException("month 参数错误");
+        }
+
+        this.month = month;
+    }
+
+    public void setDay(int day) {
+        if (day < 1 || day > MyDate.getMonthDay(year, month)) {
+            throw new RuntimeException("day 参数错误");
+        }
+
+        this.day = day;
+    }
 
     // 1. 必须得校验，传入参数的合法性
     //    year: 1900 <= year <= 3000
@@ -23,7 +68,7 @@ public class MyDate {
         }
 
         // 需要一个，可以根据 year, month，计算出该月共有多少天的方法
-        if (day < 1 || day > getMonthDay(year, month)) {
+        if (day < 1 || day > MyDate.getMonthDay(year, month)) {
             throw new RuntimeException("day 参数错误");
         }
 
@@ -38,24 +83,15 @@ public class MyDate {
         this.day = from.day;
     }
 
-    public int getMonthDay(int year, int month) {
+    public static int getMonthDay(int year, int month) {
         switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
                 // 利用不加 break，代码会继续向下的规则
                 return 31;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
+            case 4: case 6: case 9: case 11:
                 return 30;
             case 2:
-                return isLeapYear(year) ? 29 : 28;
+                return MyDate.isLeapYear(year) ? 29 : 28;
             default:
                 // 肯定不会走到这里，但 Java 语法要求所有分支必须有返回值
                 // 所以写出来
@@ -63,7 +99,7 @@ public class MyDate {
         }
     }
 
-    public boolean isLeapYear(int year) {
+    public static boolean isLeapYear(int year) {
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 
@@ -74,7 +110,7 @@ public class MyDate {
     // 注解没有执行含义（目前遇到的），主要是方便开发者一眼就看出哪些方法是重写方法，哪些不是
     @Override
     public String toString() {
-        String s = String.format("%04d-%02d-%02d", year, month, day);
+        String s = String.format("%04d-%02d-%02d", this.year, this.month, this.day);
         return s;
     }
 
@@ -114,7 +150,7 @@ public class MyDate {
 
     public void increment() {
         day++;
-        if (day <= getMonthDay(year, month)) {
+        if (day <= MyDate.getMonthDay(year, month)) {
             // day 不需要考虑进位
             return;
         }

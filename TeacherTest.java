@@ -1,15 +1,18 @@
 public class TeacherTest {
     public static void main(String[] args) {
-        Teacher a = new Teacher();
+        // 针对 Teacher 作为对象模板的用法
+        Teacher a = new Teacher("AAA", 1);
+        a.introduce();  // 通过指向 Teacher 对象的引用去调用
 
-        // 这两个操作是等价的
-        // System.out.println(引用) => System.out.println(引用.toString())
-        System.out.println(a);
-        // System.out.printf("%s", 引用) => System.out.printf("%s", 引用.toString())
-        System.out.printf("%s\n", a);
-
-        String s = a.toString();
-        System.out.println(s);
-        System.out.printf("%s\n", s);
+        // 针对 Teacher 用户静态的集合
+        // 使用类名调用，和对象无关
+        int b = Teacher.countOfTeacher;
+        System.out.println(b);                  // 0
+        System.out.println(Teacher.buildTeacher("Hello"));  // "Hello"
+        System.out.println(Teacher.countOfTeacher); // 1
+        System.out.println(Teacher.getCountOfTeacher());    // 1
+        System.out.println(Teacher.buildTeacher("world"));  // "world"
+        System.out.println(Teacher.countOfTeacher); // 2
+        System.out.println(Teacher.getCountOfTeacher());    // 2
     }
 }
