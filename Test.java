@@ -1,21 +1,27 @@
-package binary_search;
+package date_time;
 
-import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class Test {
-    public static void main(String[] args) {
-        long[][] array = {
-                {1, 2, 3, 4, 5},
-                {6, 7, 8, 9, 10},
-                {11, 12, 13, 14, 15}
-        };
-        int rows = 3;
-        int columns = 5;
+    public static void main(String[] args) throws InterruptedException {
+        MyDateTime dt1 = new MyDateTime(2021, 12, 31, 23, 59, 53);
+        MyDateTime dt2 = new MyDateTime(dt1);
 
-        for (long target = 0; target <= 16; target++) {
-            int[] index = Search.search(array, rows, columns, target);
+        System.out.println(dt1);    //2021-12-31 23:59:53
+        System.out.println(dt2);    //2021-12-31 23:59:53
 
-            System.out.printf("查找 %d 的结果是: %s\n", target, Arrays.toString(index));
-        }
+        dt1.next();
+        dt1.next();
+        dt1.next();
+
+        System.out.println(dt1);    // 2021-12-31 23:59:56
+        System.out.println(dt2);    // 2021-12-31 23:59:53
+
+
+//        while (true) {
+//            System.out.println(datetime);
+//            datetime.next();
+//            TimeUnit.SECONDS.sleep(1);  // 让代码停顿 1 秒
+//        }
     }
 }
